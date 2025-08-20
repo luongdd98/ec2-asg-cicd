@@ -27,22 +27,15 @@ flask-deployment/
 
 ## 🎯 Quick Start
 
-### 1. Tạo deployment package
+### 1. Zip thư mục flask-deployment
 ```bash
-# Di chuyển vào thư mục flask-deployment
-cd flask-deployment
-
-# Tạo zip file cho deployment
-zip -r ../flask-app-deployment.zip . -x "*.git*" "*.pyc" "*__pycache__*" "README.md"
-
-# Hoặc sử dụng script tự động
-./create-deployment-package.sh
+zip -r flask-deployment.zip flask-deployment/
 ```
 
 ### 2. Upload lên S3
 ```bash
 # Upload zip file lên S3 bucket (triggers CodePipeline)
-aws s3 cp ../flask-app-deployment.zip s3://will-stag-apn1-flask-python-s3/source.zip
+aws s3 cp flask-deployment.zip s3://will-stag-apn1-flask-python-s3/flask-deployment.zip
 
 # Kiểm tra upload thành công
 aws s3 ls s3://will-stag-apn1-flask-python-s3/

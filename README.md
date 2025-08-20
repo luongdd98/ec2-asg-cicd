@@ -363,19 +363,23 @@ echo "Flask application stopped successfully!"
 
 ### 🚀 Deploy Application
 
+**Đơn giản chỉ cần 2 bước:**
+
 ```bash
-# Option 1: Use automated deployment script
-cd flask-deployment
-./deploy.sh
+# 1. Zip thư mục flask-deployment
+zip -r flask-deployment.zip flask-deployment/
 
-# Option 2: Manual deployment
-cd flask-deployment
-./create-deployment-package.sh
-aws s3 cp ../flask-app-deployment-*.zip s3://will-stag-apn1-flask-python-s3/source.zip
+# 2. Upload lên S3 (triggers CodePipeline tự động)
+aws s3 cp flask-deployment.zip s3://will-stag-apn1-flask-python-s3/flask-deployment.zip
+```
 
-# Monitor deployment
+**Monitor deployment:**
+```bash
+# Theo dõi CodePipeline status
 aws codepipeline get-pipeline-state --name will-stag-apn1-flask-python
-aws deploy get-deployment --deployment-id <deployment-id>
+
+# Theo dõi CodeDeploy progress
+aws deploy list-deployments --application-name will-stag-apn1-flask-python
 ```
 
 > 📖 **Detailed deployment guide**: Xem [flask-deployment/README.md](flask-deployment/README.md) để biết chi tiết về cấu trúc application và deployment process.
